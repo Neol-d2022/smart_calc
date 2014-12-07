@@ -1,4 +1,4 @@
-class Stack {
+class Stack { //Store charaters
 private:
 	int* stack;
 	unsigned int cur;
@@ -31,7 +31,7 @@ public:
 	void clear() { cur = 0; }
 };
 
-class Stack_n {
+class Stack_n { //Store reals
 private:
 	double* stack;
 	unsigned int cur;

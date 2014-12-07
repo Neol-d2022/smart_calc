@@ -8,11 +8,11 @@
 
 #define MAX_STACK_SIZE	64
 
-int isN(char c);
-int isO(char c);
-int isClosureO(char c);
+int isN(char c); //Is a number(real)
+int isO(char c); //Is a operator
+int isClosureO(char c); // '(' and ')' char
 void nextChr(char *str, unsigned char *i, unsigned char l);
-char p(char c);
+char p(char c); //Get the proirity of an operator
 void errMsg(char *b, unsigned char c, char e);
 void errFull();
 double _calc(double num1, double num2, char optr);
@@ -21,10 +21,10 @@ double calc(char *buf, unsigned char *i, unsigned char l, int *t);
 int main(int argc, char** argv) {
 	char buf[256];
 	fgets(buf, sizeof(buf), stdin);
-	unsigned char c = 0;
-	unsigned char l = 0;
+	unsigned char c = 0; //char counter
+	unsigned char l = 0; //length
 	while (buf[l] != '\0') l++;
-	l--;
+	l--; //New line char does not count
 	int t = 0;
 	double r = calc(buf, &c, l, &t);
 	if (t){
@@ -38,6 +38,7 @@ int main(int argc, char** argv) {
 inline int isN(char c){
 	if (c >= '0' && c <= '9') return 1;
 	if (c == '.') return 1;
+	if (c == '-') return 1;
 	return 0;
 }
 
@@ -95,6 +96,10 @@ double calc(char *buf, unsigned char *i, unsigned char l, int *t){
 	Stack o(MAX_STACK_SIZE); //operator
 	//Stack s(MAX_STACK_SIZE); //closure
 	char expected = 0;
+	/*
+		When expected is 0, the program expect to meet a number next.
+		When expected is 1, the program expect to meet a operator next.
+	*/
 	char last_ch = 0x0;
 	char last_p = 0;
 	unsigned char c = *i;
